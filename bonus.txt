@@ -88,3 +88,57 @@ Benefits:
 Centralized Storage: Easily manage and store Docker images in one place.
 Versioning: Registries keep track of image versions, making it easy to manage updates.
 Collaboration: Public registries allow users to share images with the global developer community, while private ones facilitate collaboration within organizations.
+
+Docker commmands: 
+
+Step 1: Build the Docker Image
+This takes your Dockerfile and project files and creates a reusable image.
+Command:
+docker build -t mlops-docker-demo .
+
+-t mlops-docker-demo → gives the image a name (mlops-docker-demo).
+. → means build from the current directory (where Dockerfile is).
+Example: Think of this as "packing your app + Python + dependencies into a box".
+
+Step 2: Run a Container from that Image
+A container is a running instance of the image.
+Command:
+docker run -p 5000:5000 mlops-docker-demo
+
+-p 5000:5000 → maps container’s port 5000 to your machine’s port 5000.
+
+mlops-docker-demo → runs the image you built.
+
+Example: Think of this as "starting the box and letting your Flask app run inside it".
+-----------------------------------------------------------------------------------------
+Step 3: Build Your Image On DockerHub
+When pushing to Docker Hub, you need to tag your image with your Docker Hub username.
+
+docker build -t <dockerhub-username>/<repo-name>:<tag> .
+
+Example:
+docker build -t ank449/mlops-docker-demo:latest .
+
+ankuryadav09 → your Docker Hub username
+
+mlops-docker-demo → repository name (it will be created automatically if it doesn’t exist)
+
+:latest → tag (you can use v1, v2, etc. for versions)
+
+Step 4: Push Image to Docker Hub
+docker push <dockerhub-username>/<repo-name>:<tag>
+
+Example:
+docker push ank449/mlops-docker-demo:latest
+
+Step 5: Pull Image from Docker Hub (on another machine/server)
+docker pull <dockerhub-username>/<repo-name>:<tag>
+
+Example:
+docker pull ank449/mlops-docker-demo:latest
+
+Step 6: Run Container from Hub
+docker run -p 5000:5000 <dockerhub-username>/<repo-name>:<tag>
+
+Example:
+docker run -p 5000:5000 ank449/mlops-docker-demo:latest
